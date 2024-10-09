@@ -1,0 +1,9 @@
+flask
+flask-restx
+requests
+isort
+black
+Flask-Cors
+Flask-Bcrypt
+Flask-PyMongo
+pyjwt
