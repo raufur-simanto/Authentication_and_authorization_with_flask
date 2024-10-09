@@ -67,14 +67,17 @@ class Posts(Resource):
             payload["email"] = user_email
             username = payload["username"]
             app.logger.info(f"payload: {payload}")
+            user = get_user_by_username(username)
 
             if get_user_by_username(username) and get_user_by_email(user_email):
+                if user["email"] != user_email:
+                    return "Not Authorized", 401
 
                 post = create_post(user_email, username, payload["title"])
 
                 return {"msg": "post created successfully"}, 201
             else:
-                abort(404, "No user found with this username")
+                return "No user found with this username", 404
 
         except Exception as e:
             abort(400, "Something went wrong")

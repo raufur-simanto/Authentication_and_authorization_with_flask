@@ -116,12 +116,17 @@ class User(Resource):
     def put(self, user_id):
         """Update a specific user"""
         app.logger.info(f"Updating user {user_id}")
+        email = getattr(self.put, "email", None)
+        usertype = getattr(self.put, "usertype", None)
         payload = request.get_json()
         user = get_user_by_user_id(user_id)
         if not user:
             app.logger.warning(f"404 Not Found: User {user_id} not found")
             abort(404, description=f"User with ID {user_id} not found")
         payload["user_id"] = user_id
+
+        if user["email"] != email:
+                    return "Not Authorized", 401
 
         if update_user(payload):
             user = get_user_by_user_id(user_id)

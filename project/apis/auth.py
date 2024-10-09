@@ -69,6 +69,7 @@ class Signup(Resource):
                     hashed_password = bcrypt.generate_password_hash(
                         password, 13
                     ).decode()
+                    app.logger.info(hashed_password)
                     signup(email, username, usertype, hashed_password)
                     return {"message": "User signed up successfully"}, 200
                 else:
