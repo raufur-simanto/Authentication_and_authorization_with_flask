@@ -8,3 +8,5 @@ Flask-Bcrypt
 Flask-PyMongo
 pyjwt
 gunicorn
+awslambdaric
+aws-lambda-wsgi
